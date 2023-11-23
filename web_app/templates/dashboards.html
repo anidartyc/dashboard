@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .link {
+        color: #000000;
+        text-decoration: none;
+    }
+</style>
+
+
+{% endblock %}
+
+{% block pagetitle %}
+
+<div class="row">
+    <div class="col-10">
+        <h1> 
+            <a href="/" class="link">
+                <i class="fas fa-arrow-left"></i>
+            </a> Mis Dashboards 
+        </h1>
+    </div>
+    <div class="col-2">
+        <form>
+            <select name="" id="select2" class="form-control select2 " onchange="send_filter()">
+                <option value="all" class="form-control">Todos los tags</option>
+
+                {% for tag in tags %}
+                <option value="{{ tag.id }}" {% if digital_solution.id == filter %} selected {% endif %}>{{ tag.name }}
+                </option>
+                {% endfor %}
+
+            </select>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block content %}
+<hr>
+<div class="card-body pb-0">
+    <div class="row">
+        {% for dashboard in dashboards %}
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column "
+            id={{dashboard.get_slug_digitalsolution}}>
+            <div class="card bg-light d-flex flex-fill ">
+                <div class="card-header text-muted border-bottom-0">
+                    {{ dashboard.digital_solution }}
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-7">
+                            <h2 class="lead" style="color: #950098;"><b>{{ dashboard.name }}</b></h2>
+                            <p class="text-muted text-sm">{{ dashboard.get_description }}</p>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-tag"></i></span>
+                                    {% for tag in dashboard.tags.all %}
+                                    <span class="badge bg-info"> {{ tag }} </span>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="{% static 'web_app/img/dash_icon.png' %}" alt="user-avatar" class=" img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="text-right">
+                        <a href="/dashboard/{{ dashboard.id }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i> Ver Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+    send_filter = function () {
+        var e = document.getElementById("select2");
+        var strUser = e.options[e.selectedIndex].value;
+        window.location.href = "?filter=" + strUser;
+    }
+
+</script>
+
+{% endblock %}

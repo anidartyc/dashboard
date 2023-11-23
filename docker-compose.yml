@@ -1,0 +1,49 @@
+## docker-compose para django y posgrsql
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - $DB_PORT:5432
+    ## volumes:
+      ##- ./data:/var/lib/postgresql/data
+    restart: always
+
+  web:
+    build: .
+    #command: gunicorn --workers=5 --timeout 90000 --bind=0.0.0.0:8000 data_dashboard_bi.wsgi:application 
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "80:8000"
+    depends_on:
+      - db
+    restart: always
+
+  nginx_server:
+    image: nginx:1.21
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - .:/code
+    depends_on:
+      - web
+    restart: always
+
+  certbot:
+      image: certbot/certbot
+      volumes:
+        - ./nginx/conf.d:/etc/nginx/conf.d
+        - ./nginx/certbot/conf:/etc/letsencrypt
+        - ./nginx/certbot/www:/var/www/certbot
+      depends_on:
+        - nginx_server
+      command: certonly --webroot --webroot-path=/var/www/certbot --register-unsafely-without-email --agree-tos --no-eff-email --staging -d ${DOMAIN}
+

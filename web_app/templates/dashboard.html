@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Dashboard - {{ dashboard.name }} {% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .link {
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .content-wrapper {
+        background-color: #eaeaea;
+    }
+
+    .contenedor {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 69% calc(100% - 40px), 69% 100%, 0 100%);
+    }
+</style>
+{% endblock %}
+
+{% block pagetitle %}
+
+<div class="row">
+    <div class="col-10">
+        <a href="javascript:history.back()" class="link">
+            <i class="fas fa-arrow-left"></i>
+        </a> {{ dashboard.name }}
+    </div>
+    <div class="col-2">
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="contenedor">
+    <iframe id="iframe" style='width: 100%; height: 800px; ' frameborder="0" scrolling="none"
+        allow="autoplay; fullscreen; camera; microphone"></iframe>
+</div>
+{% endblock %}
+{% block scripts %}
+<!-- js -->
+<script src="/dashboard{{ dashboard.id }}.js"></script>
+
+<script>
+    document.body.classList.add('sidebar-collapse', 'sidebar-mini'); 
+</script>
+
+{% endblock %}

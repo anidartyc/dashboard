@@ -1,0 +1,9 @@
+Django==4.0.2
+django-grappelli==3.0.7
+django-cors-headers==4.2
+Pillow
+django-tinymce==3.6.1
+django-import-export
+django-allauth
+gunicorn==21.1.0
+psycopg2-binary==2.9.1

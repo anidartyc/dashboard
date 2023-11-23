@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %} Inicio {% endblock %} | {{ site_name }} </title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link href="{% static 'web_app/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <!-- Theme style -->
+  <link href="{% static 'web_app/admin_lte/css/adminlte.min.css' %}" rel="stylesheet">
+
+  <!-- Template Base CSS -->
+  {% block css %} 
+  
+  {% endblock %}
+</head>
+
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-icon">
+        <a href="/"  > 
+          <img src="{% static 'web_app/img/logo.png' %}"  alt="Logo" class="img-fluid" style="width:250px;padding: 5px" >
+        </a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <i class="far fa-compass text-center" style="font-size: 1.8rem; color: rgb(130, 191, 237);"></i>
+      <span class="brand-text " style="font-size: 1.5rem; color: rgb(130, 191, 237);line-height: .8; margin-left: 0.8rem;  margin-right: 0.5rem;  margin-top: -3px;  max-height: 33px;   width: auto;"> {{ site_name }}</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <i class="far fa-user fa-beat " style="font-size: 2rem; color: #c2c7d0"></i>
+        </div>
+        <div class="info">
+          <a href="#" class="d-block text-center" style="margin-top: -9px;"> {{ user.first_name }} {{ user.last_name }}</a>
+          <a href="#" class="d-block small ">{{ user.client }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+          <li class="nav-item">
+            <a href="/" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboards
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/help" class="nav-link">
+              <i class="nav-icon fa fa-life-ring"></i>
+              <p>
+                Ayuda 
+              </p>
+            </a>
+          </li>
+
+          {% if user.is_superuser %}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-edit"></i>
+              <p>
+                Configuración
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin" class="nav-link">
+                  <i class="fa fa-square nav-icon"></i>
+                  <p>Administración</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+
+
+
+          <li class="nav-item">
+            <a href="/accounts/logout" class="nav-link">
+              <i class="fa fa-power-off nav-icon"></i>
+              <p>Salir</p>
+            </a>
+          </li>
+          
+
+         
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col">
+              {% block pagetitle %}  {% endblock %} 
+          </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          
+
+      {% block content %}
+
+
+      {% endblock %}
+      </div><!-- /.container-fluid -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>powered by</b> <a href="https://inventivalab.com/">InventivaLab</a>
+    </div>
+    <strong>Copyright &copy; 2023 <a href="#">Anidar</a>.</strong> All rights reserved.
+  </footer>
+  
+</div>
+<!-- jQuery -->
+<script src="{% static 'web_app/vendor/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'web_app/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'web_app/admin_lte/js/adminlte.min.js' %}"></script>
+<!-- Page Specific JS File -->
+{% block scripts %} {% endblock %}
+
+</body>
+</html>

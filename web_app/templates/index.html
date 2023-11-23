@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .link {
+        color: #000000;
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block pagetitle %}
+<div class="row">
+    <div class="col-10">
+        <h1> Mis Categorías </h1>
+    </div>
+    <div class="col-2">
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<hr>
+<h4> Categorías a las que tienes acceso </h4>
+<div class="row">
+    {% for digital_solution in digital_solutions %}
+    <!-- /.col -->
+        <div class="col-md-4">
+            <a href="/dashboards/{{ digital_solution.id }}/?filter=all" class="link" >
+            <!-- Widget: user widget style 1 -->
+            <div class="card card-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-warning">
+                    <h3 class="widget-user-username">{{ digital_solution.name }}</h3>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img elevation-2" src="/media/{{ digital_solution.image }}" alt="Avatar">
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header"></h5>
+                                <span class="description-text"></span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">{{ digital_solution.dasboards_count }}</h5>
+                                <span class="description-text">Tableros</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header"></h5>
+                                <span class="description-text"></span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </a>
+            <!-- /.widget-user -->
+        </div>
+        <!-- /.col -->
+    
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+<script>
+
+    send_filter = function () {
+        var e = document.getElementById("select2");
+        var strUser = e.options[e.selectedIndex].value;
+        window.location.href = "/filter=" + strUser;
+    }
+
+</script>
+
+
+
+
+{% endblock %}
