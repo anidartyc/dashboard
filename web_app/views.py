@@ -1,6 +1,8 @@
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 from .models import (
     Dashboard,
     DigitalSolution,
@@ -13,6 +15,10 @@ from .models import (
 # import settings
 from django.conf import settings
 
+
+def logout(request):
+    auth_logout(request)
+    return redirect('https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=https://testdash.ingejei.com/accounts/')
 
 @method_decorator(login_required, name="dispatch")
 class IndexView(TemplateView):
