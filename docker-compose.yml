@@ -21,29 +21,28 @@ services:
     volumes:
       - .:/code
     ports:
-      - "80:8000"
+      - "8000:8000"
     depends_on:
       - db
     restart: always
 
-  nginx_server:
-    image: nginx:1.21
-    ports:
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - .:/code
-    depends_on:
-      - web
-    restart: always
+  # nginx_server:
+  #   image: nginx:1.21
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - .:/code
+  #   depends_on:
+  #     - web
+  #   restart: always
 
-  certbot:
-      image: certbot/certbot
-      volumes:
-        - ./nginx/conf.d:/etc/nginx/conf.d
-        - ./nginx/certbot/conf:/etc/letsencrypt
-        - ./nginx/certbot/www:/var/www/certbot
-      depends_on:
-        - nginx_server
-      command: certonly --webroot --webroot-path=/var/www/certbot --register-unsafely-without-email --agree-tos --no-eff-email --staging -d ${DOMAIN}
-
+  # certbot:
+  #     image: certbot/certbot
+  #     volumes:
+  #       - ./nginx/conf.d:/etc/nginx/conf.d
+  #       - ./nginx/certbot/conf:/etc/letsencrypt
+  #       - ./nginx/certbot/www:/var/www/certbot
+  #     depends_on:
+  #       - nginx_server
+  #     command: certonly --webroot --webroot-path=/var/www/certbot --register-unsafely-without-email --agree-tos --no-eff-email --staging -d ${DOMAIN}
