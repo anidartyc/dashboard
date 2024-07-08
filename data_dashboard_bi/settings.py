@@ -16,7 +16,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ["*"]
-
+# POSGRES = os.environ.get('POSGRES')
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
     f"http://{os.environ.get('DOMAIN')}",
@@ -123,12 +123,25 @@ TEMPLATES = [
 WSGI_APPLICATION = "data_dashboard_bi.wsgi.application"
 
 # Database
+# if not POSGRES:
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
 }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql_psycopg2",
+#             "NAME": os.environ.get("DB_NAME", "postgres"),
+#             "USER": os.environ.get("DB_USER", "postgres"),
+#             "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
+#             "HOST": os.environ.get("DB_HOST", "localhost"),
+#             "PORT": os.environ.get("DB_PORT", "5432"),
+#         }
+#     }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
