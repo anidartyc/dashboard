@@ -164,7 +164,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-SITE_ID = 1
+SITE_ID = 3
 
 # Internationalization
 LANGUAGE_CODE = "es-es"

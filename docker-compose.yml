@@ -1,5 +1,4 @@
 ## docker-compose para django y posgrsql
-version: '3'
 
 services:
   # db:
@@ -28,6 +27,9 @@ services:
       - .env
     restart: always
 
+
+volumes:
+  sqlite_data: 
   # nginx_server:
   #   image: nginx:1.21
   #   ports:
